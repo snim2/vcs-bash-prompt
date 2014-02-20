@@ -70,7 +70,7 @@ Because these functions call your VCS program (git, hg, svn) you have to add you
 
 Then I have looked for `PS1` in my `.bashrc` and I have changed the setting to the following one where I have introduced the call to the `prompt_vcs` function:
 ```
-PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(prompt_vcs)\$ '
+PS1="${debian_chroot:+($debian_chroot)}\u@\h:\!:\w$(prompt_vcs)\$ "
 ```
 
 That is all.
@@ -79,16 +79,26 @@ That is all.
 Adding some color
 -----------------
 
-Probably your `.bashrc` lets you choose a colored prompt. In that case simply introduce the call to the `prompt_vcs` function to both the `PS1` setting lines:
+Probably your `.bashrc` lets you choose a colored prompt. In that case simply introduce the call to the `prompt_vcs` function to both the `PS1` setting lines. The example below includes some additional information, such as the number of the last job which was run and its return code:
 
 ```
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(prompt_vcs)\[\033[00m\]\$ '
+    color_reset=$(tput sgr0)
+    color_bold=$(tput bold)
+    color_white=$(tput setaf 7)
+    color_jobs=$(tput setaf 7)
+    color_user=$(tput setaf 2)
+    color_vcs=$(tput setaf 3)
+    color_dir=$(tput setaf 4)
+    color_tick=$(tput setaf 2)
+    color_cross=$(tput setaf 1)
+    sep=$(tput setaf 7)\:
+    PS1="${debian_chroot:+($debian_chroot)}${color_bold}${color_user}\u${color_jobs}${sep}\!${sep}(\`if [[ \$? == 0 ]]; then echo \"${color_tick}\342\234\223\"; else echo \"${color_cross}\342\234\227\"; fi\`${color_white})${sep}${color_dir}\w${sep}${color_vcs}$(prompt_vcs)${color_reset}\$ "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(prompt_vcs)\$ '
+    PS1="${debian_chroot:+($debian_chroot)}\u@\h:\!:\w$(prompt_vcs)\$ "
 fi
 ```
 
 In the following screenshot you can see my custom prompt when I work on `JugEvents3` with hg and when I work on `SemVer` with git:
 
-![Screenshot](/screenshot.jpg)
+![Screenshot](/screenshot.png)
