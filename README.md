@@ -93,9 +93,9 @@ if [ "$color_prompt" = yes ]; then
     color_tick=$(tput setaf 2)
     color_cross=$(tput setaf 1)
     sep=$(tput setaf 7)\:
-    PS1="${debian_chroot:+($debian_chroot)}${color_bold}${color_user}\u${color_jobs}${sep}\!${sep}(\`if [[ \$? == 0 ]]; then echo \"${color_tick}\342\234\223\"; else echo \"${color_cross}\342\234\227\"; fi\`${color_white})${sep}${color_dir}\w${sep}${color_vcs}$(prompt_vcs)${color_reset}\$ "
+    PS1="${debian_chroot:+($debian_chroot)}${color_bold}${color_user}\[\u\]${color_jobs}${sep}\[\!$\]${sep}(\`if [[ \$? == 0 ]]; then echo \"${color_tick}\[\342\234\223\]\"; else echo \"${color_cross}\[\342\234\227\]\"; fi\`${color_white})${sep}${color_dir}\[\w\$]{sep}${color_vcs}\[$(prompt_vcs)\]${color_reset}\$ "
 else
-    PS1="${debian_chroot:+($debian_chroot)}\u@\h:\!:\w$(prompt_vcs)\$ "
+    PS1="${debian_chroot:+($debian_chroot)}\[\u\]:\[\!\]:\[\w\]\[$(prompt_vcs)\]\$ "
 fi
 ```
 
