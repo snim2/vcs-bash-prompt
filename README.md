@@ -100,6 +100,6 @@ else
 fi
 ```
 
-In the following screenshot you can see my custom prompt when I work on `JugEvents3` with hg and when I work on `SemVer` with git:
+In the following screenshot you can see my custom prompt when I work on `tokenring` with git:
 
 ![Screenshot](/screenshot.png)
